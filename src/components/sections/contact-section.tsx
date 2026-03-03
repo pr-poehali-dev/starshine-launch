@@ -3,11 +3,14 @@ import { useState, type FormEvent } from "react"
 import { MagneticButton } from "@/components/magnetic-button"
 import Icon from "@/components/ui/icon"
 
+const API_URL = "https://functions.poehali.dev/fdc5e546-6d94-4f3a-bcc1-49c208be65c8"
+
 export function ContactSection() {
   const { ref, isVisible } = useReveal(0.3)
   const [formData, setFormData] = useState({ name: "", role: "", message: "" })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -17,11 +20,26 @@ export function ContactSection() {
     }
 
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setSubmitSuccess(true)
-    setFormData({ name: "", role: "", message: "" })
-    setTimeout(() => setSubmitSuccess(false), 5000)
+    setError("")
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "feedback", ...formData }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSubmitSuccess(true)
+        setFormData({ name: "", role: "", message: "" })
+        setTimeout(() => setSubmitSuccess(false), 5000)
+      } else {
+        setError(data.error || "Ошибка отправки")
+      }
+    } catch {
+      setError("Не удалось отправить. Попробуйте позже.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -162,6 +180,9 @@ export function ContactSection() {
                 </MagneticButton>
                 {submitSuccess && (
                   <p className="mt-3 text-center font-mono text-sm text-foreground/80">Спасибо! Ваше мнение получено.</p>
+                )}
+                {error && (
+                  <p className="mt-3 text-center font-mono text-sm text-red-400/80">{error}</p>
                 )}
               </div>
             </form>

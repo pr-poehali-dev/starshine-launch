@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "name": "GET poll results",
+      "method": "GET",
+      "path": "/?action=get_poll",
+      "expectedStatus": 200,
+      "expectedBody": {"results": {}},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "POST vote poll",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "vote", "option": "neutral"},
+      "expectedStatus": 200,
+      "expectedBody": {"success": true},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "POST feedback",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "feedback", "name": "Иван Иванов", "role": "student", "message": "Интересный проект!"},
+      "expectedStatus": 200,
+      "expectedBody": {"success": true},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
