@@ -15,31 +15,31 @@ export function ServicesSection() {
           }`}
         >
           <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Услуги
+            Этичный ИИ
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Наши компетенции</p>
+          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Ключевые принципы</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 md:gap-x-16 md:gap-y-12 lg:gap-x-24">
           {[
             {
-              title: "Веб-разработка",
-              description: "Создание современных веб-приложений любой сложности",
+              title: "Прозрачность",
+              description: "ИИ должен объяснять свои решения. Ученик вправе знать, как система оценивает его работу и почему.",
               direction: "top",
             },
             {
-              title: "UI/UX Дизайн",
-              description: "Проектирование удобных и красивых интерфейсов",
+              title: "Безопасность данных",
+              description: "Личные данные учеников не должны передаваться третьим лицам. Конфиденциальность — приоритет.",
               direction: "right",
             },
             {
-              title: "Мобильные приложения",
-              description: "Кроссплатформенная разработка для iOS и Android",
+              title: "Ответственность",
+              description: "Финальное решение всегда за человеком. ИИ — помощник, а не заменитель учителя и родителя.",
               direction: "left",
             },
             {
-              title: "Консалтинг",
-              description: "Техническая экспертиза и стратегическое планирование",
+              title: "Критическое мышление",
+              description: "ИИ не должен атрофировать самостоятельность. Используй технологии, чтобы думать глубже, а не меньше.",
               direction: "bottom",
             },
           ].map((service, i) => (
